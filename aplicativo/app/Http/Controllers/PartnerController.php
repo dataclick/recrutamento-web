@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Club;
 use App\Partner;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class PartnerController extends Controller
      */
     public function index()
     {
-        $partners = Partner::orderBy('name', 'asc')->get();
+        $partners = Partner::orderBy('name')->get();
         return view('partners.index', compact('partners'));
     }
 
@@ -25,7 +26,8 @@ class PartnerController extends Controller
      */
     public function create()
     {
-        return view('partners.create');
+        $clubs = Club::orderBy('name')->get();
+        return view('partners.create', compact('clubs'));
     }
 
     /**
@@ -39,7 +41,12 @@ class PartnerController extends Controller
         // validates
         // return back()->with('message', 'O sócio não foi salvo. Por favor, tente novamente')->withInput();
 
-        if (Partner::create($request->all())) {
+        if ($partner = Partner::create($request->all())) {
+
+            if ($request->has('clubs')) {
+                $partner->clubs()->attach($request->clubs);
+            }
+
             return redirect()
                 ->route('partners.index')
                 ->with('message', 'O sócio foi salvo com sucesso.');
@@ -65,8 +72,10 @@ class PartnerController extends Controller
      */
     public function edit($id)
     {
+        $clubs = Club::orderBy('name')->get();
         $partner = Partner::findOrFail($id);
-        return view('partners.edit', compact('partner'));
+        $associates = $partner->clubs()->get()->pluck('id')->all();
+        return view('partners.edit', compact('partner', 'clubs', 'associates'));
     }
 
     /**
@@ -84,6 +93,13 @@ class PartnerController extends Controller
         // return back()->with('message', 'O sócio não foi salvo. Por favor, tente novamente')->withInput();
 
         if ($partner->update($request->all())) {
+
+            if ($request->has('clubs')) {
+                $partner->clubs()->sync($request->clubs);
+            } else {
+                $partner->clubs()->detach();
+            }
+
             return redirect()
                 ->route('partners.index')
                 ->with('message', 'O sócio foi salvo com sucesso.');
@@ -99,6 +115,7 @@ class PartnerController extends Controller
     public function destroy($id)
     {
         $partner = Partner::findOrFail($id);
+        $partner->clubs()->detach();
         if ($partner->delete()) {
             return back()->with('message', 'O sócio foi excluído com sucesso.');
         }

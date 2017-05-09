@@ -11,7 +11,6 @@ class PartnersTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('TRUNCATE partners');
-        factory(App\Partner::class, 2)->create();
+        factory(App\Partner::class, 4)->create();
     }
 }

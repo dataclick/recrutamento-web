@@ -12,9 +12,10 @@
                 <tr>
                     <td>{{ $partner->name }}</td>
                     <td>
-                        <span class="label label-default">Clube A</span>
-                        <span class="label label-default">Clube B</span>
-                        <span class="label label-default">Clube C</span>
+                        @php $clubs = $partner->clubs()->orderBy('name')->get() @endphp
+                        @foreach ($clubs as $club)
+                            <span class="label label-default">{{ $club->name }}</span>
+                        @endforeach
                     </td>
                     <td class="text-right">
                         <a href="{{ route('partners.edit', $partner->id) }}" class="btn btn-xs btn-info">Editar</a>

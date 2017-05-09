@@ -14,7 +14,7 @@ class ClubController extends Controller
      */
     public function index()
     {
-        $clubs = Club::orderBy('name', 'asc')->get();
+        $clubs = Club::orderBy('name')->get();
         return view('clubs.index', compact('clubs'));
     }
 

@@ -11,7 +11,6 @@ class ClubsTableSeeder extends Seeder
      */
     public function run()
     {
-        \DB::statement('TRUNCATE clubs');
         factory(App\Club::class, 4)->create();
     }
 }
