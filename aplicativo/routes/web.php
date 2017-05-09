@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@index')->name('home');
 
-Route::delete('/', function () {
-    return view('welcome');
-});
+Route::resource('clubs', 'ClubController', ['except' => ['show']]);
