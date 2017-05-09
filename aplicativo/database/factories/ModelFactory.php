@@ -23,8 +23,16 @@
 //     ];
 // });
 
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\Club::class, function (Faker\Generator $faker) {
     return [
         'name' => 'Clube ' . $faker->name,
+    ];
+});
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Partner::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
     ];
 });

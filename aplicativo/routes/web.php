@@ -14,3 +14,4 @@
 Route::get('/', 'IndexController@index')->name('home');
 
 Route::resource('clubs', 'ClubController', ['except' => ['show']]);
+Route::resource('partners', 'PartnerController', ['except' => ['show']]);

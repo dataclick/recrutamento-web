@@ -14,7 +14,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li{{ Route::currentRouteName() === 'home' ? ' class=active' : '' }}><a href="{{ route('home') }}">Início</a></li>
                 <li{{ Route::currentRouteName() === 'clubs.index' ? ' class=active' : '' }}><a href="{{ route('clubs.index') }}">Clubes</a></li>
-                <li><a href="">Sócios</a></li>
+                <li{{ Route::currentRouteName() === 'partners.index' ? ' class=active' : '' }}><a href="{{ route('partners.index') }}">Sócios</a></li>
             </ul>
         </div>
     </div>

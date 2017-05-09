@@ -9,7 +9,9 @@
 
     @component('layouts.elements.panel')
         @slot('title') Sócios @endslot
-        <p><a href="" class="btn btn-default">Novo sócio</a></p>
-        @component('layouts.elements.table-partners') @endcomponent
+        @slot('subtitle') Últimos sócios cadastrados @endslot
+        <p><a href="{{ route('partners.create') }}" class="btn btn-sm btn-default">Novo sócio</a></p>
+        @include('partners.table')
+        <p><a href="{{ route('partners.index') }}" class="btn btn-sm btn-default">Todos os sócios</a></p>
     @endcomponent
 @endcomponent

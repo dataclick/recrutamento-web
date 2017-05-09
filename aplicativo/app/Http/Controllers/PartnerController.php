@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Club;
+use App\Partner;
 use Illuminate\Http\Request;
 
-class ClubController extends Controller
+class PartnerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ClubController extends Controller
      */
     public function index()
     {
-        $clubs = Club::orderBy('name', 'asc')->get();
-        return view('clubs.index', compact('clubs'));
+        $partners = Partner::orderBy('name', 'asc')->get();
+        return view('partners.index', compact('partners'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ClubController extends Controller
      */
     public function create()
     {
-        return view('clubs.create');
+        return view('partners.create');
     }
 
     /**
@@ -37,12 +37,12 @@ class ClubController extends Controller
     public function store(Request $request)
     {
         // validates
-        // return back()->with('message', 'O clube não foi salvo. Por favor, tente novamente')->withInput();
+        // return back()->with('message', 'O sócio não foi salvo. Por favor, tente novamente')->withInput();
 
-        if (Club::create($request->all())) {
+        if (Partner::create($request->all())) {
             return redirect()
-                ->route('clubs.index')
-                ->with('message', 'O clube foi salvo com sucesso.');
+                ->route('partners.index')
+                ->with('message', 'O sócio foi salvo com sucesso.');
         }
     }
 
@@ -65,8 +65,8 @@ class ClubController extends Controller
      */
     public function edit($id)
     {
-        $club = Club::findOrFail($id);
-        return view('clubs.edit', compact('club'));
+        $partner = Partner::findOrFail($id);
+        return view('partners.edit', compact('partner'));
     }
 
     /**
@@ -78,15 +78,15 @@ class ClubController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $club = Club::findOrFail($id);
+        $partner = Partner::findOrFail($id);
 
         // validates
-        // return back()->with('message', 'O clube não foi salvo. Por favor, tente novamente')->withInput();
+        // return back()->with('message', 'O sócio não foi salvo. Por favor, tente novamente')->withInput();
 
-        if ($club->update($request->all())) {
+        if ($partner->update($request->all())) {
             return redirect()
-                ->route('clubs.index')
-                ->with('message', 'O clube foi salvo com sucesso.');
+                ->route('partners.index')
+                ->with('message', 'O sócio foi salvo com sucesso.');
         }
     }
 
@@ -98,11 +98,11 @@ class ClubController extends Controller
      */
     public function destroy($id)
     {
-        $club = Club::findOrFail($id);
-        if ($club->delete()) {
-            return back()->with('message', 'O clube foi excluído com sucesso.');
+        $partner = Partner::findOrFail($id);
+        if ($partner->delete()) {
+            return back()->with('message', 'O sócio foi excluído com sucesso.');
         }
         return back()
-            ->with('message', 'O clube não foi excluído. Por favor, tente novamente.');
+            ->with('message', 'O sócio não foi excluído. Por favor, tente novamente.');
     }
 }

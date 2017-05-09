@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class PartnersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(ClubsTableSeeder::class);
-        $this->call(PartnersTableSeeder::class);
+        \DB::statement('TRUNCATE partners');
+        factory(App\Partner::class, 2)->create();
     }
 }
