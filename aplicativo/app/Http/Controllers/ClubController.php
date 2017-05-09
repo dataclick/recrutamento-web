@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Club;
+use App\Http\Requests\ClubRequest;
 use Illuminate\Http\Request;
 
 class ClubController extends Controller
@@ -31,14 +32,11 @@ class ClubController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ClubRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClubRequest $request)
     {
-        // validates
-        // return back()->with('message', 'O clube não foi salvo. Por favor, tente novamente')->withInput();
-
         if (Club::create($request->all())) {
             return redirect()
                 ->route('clubs.index')
@@ -72,16 +70,13 @@ class ClubController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ClubRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClubRequest $request, $id)
     {
         $club = Club::findOrFail($id);
-
-        // validates
-        // return back()->with('message', 'O clube não foi salvo. Por favor, tente novamente')->withInput();
 
         if ($club->update($request->all())) {
             return redirect()

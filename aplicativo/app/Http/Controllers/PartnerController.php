@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Club;
 use App\Partner;
+use App\Http\Requests\PartnerRequest;
 use Illuminate\Http\Request;
 
 class PartnerController extends Controller
@@ -33,14 +34,11 @@ class PartnerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PartnerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PartnerRequest $request)
     {
-        // validates
-        // return back()->with('message', 'O sócio não foi salvo. Por favor, tente novamente')->withInput();
-
         if ($partner = Partner::create($request->all())) {
 
             if ($request->has('clubs')) {
@@ -81,16 +79,13 @@ class PartnerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PartnerRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PartnerRequest $request, $id)
     {
         $partner = Partner::findOrFail($id);
-
-        // validates
-        // return back()->with('message', 'O sócio não foi salvo. Por favor, tente novamente')->withInput();
 
         if ($partner->update($request->all())) {
 
